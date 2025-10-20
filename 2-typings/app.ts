@@ -41,9 +41,12 @@ function toWords(number:number|string, asOrdinal:boolean):string {
     return asOrdinal ? makeOrdinal(words) : words;
 }
 
-function generateWords(number:number):string {
+function generateWords(number:number,value?:string[]):string {
     let remainder:number=0, word:string='',
-        words:string[] = arguments[1];
+        words:string[]=[];
+        if(value !== undefined){
+            words = value;
+        }
 
     // We’re done
     if (number === 0) {
@@ -99,5 +102,5 @@ function generateWords(number:number):string {
     }
 
     words.push(word);
-    return generateWords(remainder);
+    return generateWords(remainder,words);
 }
