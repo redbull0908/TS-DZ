@@ -65,7 +65,7 @@ function generateWords(number:number):string {
 
     } else if (number < Numbers.ONE_HUNDRED) {
         remainder = number % Numbers.TEN;
-        word = TENTHS_LESS_THAN_HUNDRED[Math.floor(number / Numbers.TEN)]='';
+        word = TENTHS_LESS_THAN_HUNDRED[Math.floor(number / Numbers.TEN)]+'';
         // In case of remainder, we need to handle it here to be able to add the “-”
         if (remainder) {
             word += '-' + LESS_THAN_TWENTY[remainder];
