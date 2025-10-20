@@ -1,3 +1,7 @@
+import makeOrdinal = require('./makeOrdinal');
+import isFinite = require('./isFinite');
+import isSafeNumber = require('./isSafeNumber');
+
 const enum Numbers {
     TEN = 10,
     ONE_HUNDRED = 100,
@@ -57,11 +61,11 @@ function generateWords(number:number):string {
 
     if (number < 20) {
         remainder = 0;
-        word = LESS_THAN_TWENTY[number];
+        word = LESS_THAN_TWENTY[number]+'';
 
     } else if (number < Numbers.ONE_HUNDRED) {
         remainder = number % Numbers.TEN;
-        word = TENTHS_LESS_THAN_HUNDRED[Math.floor(number / Numbers.TEN)];
+        word = TENTHS_LESS_THAN_HUNDRED[Math.floor(number / Numbers.TEN)]='';
         // In case of remainder, we need to handle it here to be able to add the “-”
         if (remainder) {
             word += '-' + LESS_THAN_TWENTY[remainder];
@@ -95,5 +99,5 @@ function generateWords(number:number):string {
     }
 
     words.push(word);
-    return generateWords(remainder, words);
+    return generateWords(remainder);
 }
