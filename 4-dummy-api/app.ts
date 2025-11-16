@@ -104,7 +104,7 @@ async function example() {
         data.users.forEach(x => {
           if (x != undefined) {
             console.log(x)
-          }
+          }else console.error()
         });
       throw new Error('Пользователей нет')
     }
@@ -115,4 +115,4 @@ async function example() {
   }
 }
 
-(async () => { await example(); })()
+(async () => { await example().catch(error => console.error('произошла ошибка', error)); })()
