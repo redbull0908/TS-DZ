@@ -92,23 +92,28 @@ interface UsersResponse {
 }
 
 async function loadUsers(): Promise<UsersResponse> {
-  const res = await fetch("https://dummyjson.com/users");
+  try{
+    const res = await fetch("https://dummyjson.com/users");
   return res.json() as Promise<UsersResponse>;
+  }
+  catch {
+    throw new Error('не удалось получить данные')
+  }
+  
 }
 
 async function example() {
   const data = await loadUsers();
-console.log(data)
-  const user = data.users[0];
-if(user != undefined){
-  if (user.gender === Gender.Male) {
-    console.log("Мужчина:", user.firstName);
-  }
-
-  if (user.role === Role.Admin) {
-    console.log("Это админ!");
-  }
+if(data != undefined){
+  if(data.users != undefined && data.users != null)
+  data.users.forEach(x => {
+    if(x != undefined){
+      console.log(x)
+    }
+  });
+  throw new Error('Пользователей нет')
 }
+throw new Error('данные не получили')
 }
 
 console.log(example())
