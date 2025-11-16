@@ -111,8 +111,8 @@ async function example() {
     throw new Error('данные не получили')
   }
   catch {
-    throw new Error('Ошибка выполнения запроса')
+    throw console.error()
   }
 }
 
-example().then();
+(async () => { await example(); })()

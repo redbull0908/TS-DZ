@@ -17,17 +17,22 @@ async function loadUsers() {
     return res.json();
 }
 async function example() {
-    const data = await loadUsers();
-    console.log(data);
-    const user = data.users[0];
-    if (user != undefined) {
-        if (user.gender === Gender.Male) {
-            console.log("Мужчина:", user.firstName);
+    try {
+        const data = await loadUsers();
+        if (data != undefined) {
+            if (data.users != undefined && data.users != null)
+                data.users.forEach(x => {
+                    if (x != undefined) {
+                        console.log(x);
+                    }
+                });
+            throw new Error('Пользователей нет');
         }
-        if (user.role === Role.Admin) {
-            console.log("Это админ!");
-        }
+        throw new Error('данные не получили');
+    }
+    catch {
+        throw new Error('Ошибка выполнения запроса');
     }
 }
-console.log(example());
+example().then();
 //# sourceMappingURL=app.js.map
