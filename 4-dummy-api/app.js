@@ -25,14 +25,16 @@ async function example() {
                     if (x != undefined) {
                         console.log(x);
                     }
+                    else
+                        console.error();
                 });
             throw new Error('Пользователей нет');
         }
         throw new Error('данные не получили');
     }
     catch {
-        throw new Error('Ошибка выполнения запроса');
+        throw console.error();
     }
 }
-example().then();
+(async () => { await example().catch(error => console.error('произошла ошибка', error)); })();
 //# sourceMappingURL=app.js.map
