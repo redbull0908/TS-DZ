@@ -111,10 +111,8 @@ async function example() {
     throw new Error('данные не получили')
   }
   catch {
-    throw new Error('не удалось получить данные')
+    throw new Error('Ошибка выполнения запроса')
   }
-
-
 }
 
-console.log(example())
+example().then();
