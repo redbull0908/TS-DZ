@@ -38,7 +38,7 @@ interface Bank {
   iban: string;
 }
 
-interface CompanyAddress extends Address {}
+interface CompanyAddress extends Address { }
 
 interface Company {
   department?: string;
@@ -92,28 +92,29 @@ interface UsersResponse {
 }
 
 async function loadUsers(): Promise<UsersResponse> {
-  try{
     const res = await fetch("https://dummyjson.com/users");
-  return res.json() as Promise<UsersResponse>;
+    return res.json() as Promise<UsersResponse>;  
+}
+
+async function example() {
+  try {
+    const data = await loadUsers();
+    if (data != undefined) {
+      if (data.users != undefined && data.users != null)
+        data.users.forEach(x => {
+          if (x != undefined) {
+            console.log(x)
+          }
+        });
+      throw new Error('Пользователей нет')
+    }
+    throw new Error('данные не получили')
   }
   catch {
     throw new Error('не удалось получить данные')
   }
-  
-}
 
-async function example() {
-  const data = await loadUsers();
-if(data != undefined){
-  if(data.users != undefined && data.users != null)
-  data.users.forEach(x => {
-    if(x != undefined){
-      console.log(x)
-    }
-  });
-  throw new Error('Пользователей нет')
-}
-throw new Error('данные не получили')
+
 }
 
 console.log(example())
