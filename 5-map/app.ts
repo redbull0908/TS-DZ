@@ -5,12 +5,22 @@ interface IBucket {
   next: IBucket | null;
 }
 
+function fnv1aHash(str:string) {
+  const prime = 0x811C9DC5;
+  let hash = prime;
+  for (let i = 0; i < str.length; i++) {
+    hash ^= str.charCodeAt(i);
+    hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
+  }
+  return hash >>> 0;
+}
+
 class MapTS {
   public buckets: IBucket[] = []
 
   /** Добавить значение */
   add(key: string, value: number): void {
-    let hashTemp: number = Math.floor(Math.random() * (1 + 1));
+    let hashTemp: number = fnv1aHash(key);
     let index: number = this.buckets.findIndex(x => x.hash == hashTemp);
     if (index == -1) {
       this.buckets.push({
@@ -74,7 +84,7 @@ class MapTS {
   delete(key: string): void {
     this.buckets.forEach(element => {
       if(element.key == key && element.next == null){
-      this.buckets.splice(this.buckets.findIndex(x => x.key == key && x.next == null))
+      this.buckets.splice(this.buckets.findIndex(x => x.key == key && x.next == null),1)
       }else {
       let whTemp: IBucket | null = element
       let prev: IBucket | null = element
