@@ -12,7 +12,7 @@ function swapKeysAndValues<K extends string, V extends string | number | symbol>
   return result;
 }
 
-/* Пример */
+/* Пример выполнения */
 const obj = { a: 1, b: 2 };
 console.log(obj);
 const res = swapKeysAndValues(obj);
