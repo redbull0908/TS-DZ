@@ -1,10 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+function fnv1aHash(str) {
+    const prime = 0x811C9DC5;
+    let hash = prime;
+    for (let i = 0; i < str.length; i++) {
+        hash ^= str.charCodeAt(i);
+        hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
+    }
+    return hash >>> 0;
+}
 class MapTS {
     buckets = [];
     /** Добавить значение */
     add(key, value) {
-        let hashTemp = Math.floor(Math.random() * (1 + 1));
+        let hashTemp = fnv1aHash(key);
         let index = this.buckets.findIndex(x => x.hash == hashTemp);
         if (index == -1) {
             this.buckets.push({
@@ -66,7 +75,7 @@ class MapTS {
     delete(key) {
         this.buckets.forEach(element => {
             if (element.key == key && element.next == null) {
-                this.buckets.splice(this.buckets.findIndex(x => x.key == key && x.next == null));
+                this.buckets.splice(this.buckets.findIndex(x => x.key == key && x.next == null), 1);
             }
             else {
                 let whTemp = element;
@@ -97,10 +106,6 @@ primer.add('Гомель', 50);
 primer.add('Москва', 60);
 primer.add('Берлин', 70);
 primer.add('ОАЭ', 80);
-// console.log (primer.buckets);
-// console.log (primer.buckets[0]);
-// console.log (primer.buckets[1]);
-// console.log (`\n\n--------------------------\n\n`);
 console.log(primer.get('Москва'));
 primer.set('Москва', 100);
 console.log(primer.get('Москва'));

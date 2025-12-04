@@ -8,7 +8,6 @@ function swapKeysAndValues<K extends string, V extends string | number | symbol>
   for (const [key, value] of entries) {
     result[String(value)] = key;
   }
-
   return result;
 }
 
