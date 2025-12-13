@@ -17,9 +17,7 @@ function allowFunc<T>(validator: (value: T) => boolean) {
         if (validator(newValue)) {
           this[storageKey] = newValue;
         }
-      },
-      enumerable: true,
-      configurable: true,
+      }
     });
   };
 }
