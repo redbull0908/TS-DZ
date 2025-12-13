@@ -24,7 +24,7 @@ function difference<T extends object, U extends object>(objA: T, objB: U): Omit<
 
   (Object.keys(objA) as (keyof T)[]).forEach(key => {
     if (!(key in objB)) {
-      (result as any)[key] = objA[key];
+      (result as typeof objA)[key] = objA[key];
     }
   });
 
